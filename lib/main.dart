@@ -73,7 +73,7 @@ class _HomeViewState extends State<HomeView> {
         },
       ),
 
-      // El bottomNavigationBar se coloca fuera del body
+      //boton hasta fuera del body para que se vaya a la parte de mas abajo
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
