@@ -1,0 +1,28 @@
+
+import 'package:flutter/material.dart';
+import 'vista_principal.dart';
+import 'vista_perfil.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+
+      // Primera pantalla que se abre
+      initialRoute: '/principal',
+
+      // Tabla de rutas
+      routes: {
+        '/principal': (context) => const VistaPrincipal(),
+        '/perfil': (context) => const VistaPerfil(),
+      },
+    );
+  }
+}

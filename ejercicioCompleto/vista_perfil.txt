@@ -1,0 +1,158 @@
+
+import 'package:flutter/material.dart';
+
+class VistaPerfil extends StatelessWidget {
+
+  final String? nombre;
+  final int? edad;
+
+  const VistaPerfil({
+    super.key,
+    this.nombre,
+    this.edad,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    // Obtener argumentos de una ruta nombrada
+    final argumentos =
+        ModalRoute.of(context)?.settings.arguments;
+
+    String nombreFinal = nombre ?? 'Invitado';
+    int? edadFinal = edad;
+
+    if (argumentos is Map) {
+      if (argumentos['nombre'] is String) {
+        nombreFinal = argumentos['nombre'] as String;
+      }
+
+      if (argumentos['edad'] is int) {
+        edadFinal = argumentos['edad'] as int;
+      }
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Vista perfil'),
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
+      ),
+
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              CircleAvatar(
+                radius: 45,
+                backgroundColor: Colors.indigo,
+                child: Text(
+                  nombreFinal.isNotEmpty
+                      ? nombreFinal[0].toUpperCase()
+                      : '?',
+                  style: const TextStyle(
+                    fontSize: 35,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Text(
+                'Nombre: $nombreFinal',
+                style: const TextStyle(fontSize: 22),
+              ),
+
+              const SizedBox(height: 10),
+
+              Text(
+                'Edad: ${edadFinal ?? "No indicada"}',
+                style: const TextStyle(fontSize: 18),
+              ),
+
+              const SizedBox(height: 25),
+
+              // POP
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Volver'),
+              ),
+
+              const SizedBox(height: 12),
+
+              // POP UNTIL
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.popUntil(
+                    context,
+                        (route) => route.isFirst,
+                  );
+                },
+                child: const Text('Volver al inicio'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// PANTALLA PARA DEVOLVER UN RESULTADO
+class SeleccionarColorView extends StatelessWidget {
+  const SeleccionarColorView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Seleccionar color'),
+      ),
+
+      body: ListView(
+        children: [
+
+          ListTile(
+            leading: const Icon(
+              Icons.circle,
+              color: Colors.red,
+            ),
+            title: const Text('Rojo'),
+            onTap: () {
+              Navigator.pop(context, 'Rojo');
+            },
+          ),
+
+          ListTile(
+            leading: const Icon(
+              Icons.circle,
+              color: Colors.blue,
+            ),
+            title: const Text('Azul'),
+            onTap: () {
+              Navigator.pop(context, 'Azul');
+            },
+          ),
+
+          ListTile(
+            leading: const Icon(
+              Icons.circle,
+              color: Colors.green,
+            ),
+            title: const Text('Verde'),
+            onTap: () {
+              Navigator.pop(context, 'Verde');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
